@@ -1,2 +1,4 @@
 estoque = ["teclado", "mouse", "monitor"]
-print()
+estoque[2]
+estoque = ["webcam"]
+print(f"Estoque atualizado: {estoque}")
