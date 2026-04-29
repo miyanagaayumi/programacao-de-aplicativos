@@ -1,8 +1,6 @@
 print("---- CONTADOR DE CICLOS DA INDÚSTRIA ----")
 total_garrafas = int(input("digite o numero total de garrafas: "))
 
-
-
 #alerta de limpeza
 if total_garrafas % 500 == 0:
     print("HORA DA LIMPEZA: Parar máquina imediatamente!")
