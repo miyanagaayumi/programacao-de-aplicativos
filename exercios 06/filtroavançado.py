@@ -1,4 +1,4 @@
-def verificar_aprovacao(nota_teste, anos_xp, possui_certificacao)
+def verificar_aprovacao(nota_teste, anos_xp, possui_certificacao):
     if (nota_teste > 80 and anos_xp > 2) or possui_certificacao:
         return True 
     else: 
