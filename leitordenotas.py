@@ -1,10 +1,19 @@
-{"matematica": 8.5, "portugues": 9.0}
-
 import json
 
-with open("notas.json", "r") as f:
-    dados = json.load(f)
+dados = {
+  "matematica": 8.5,
+  "portugues": 9.0
+}
 
-soma = dados["matematica"] + dados["portugues"]
 
-print("Soma das notas:", soma)
+matematica = dados["matematica"]
+portugues = dados["portugues"]
+
+
+soma = matematica + portugues
+
+
+print("Notas carregadas:")
+print(f"Matemática: {matematica}")
+print(f"Português: {portugues}")
+print(f"Soma das notas: {soma}")

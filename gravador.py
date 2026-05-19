@@ -1,5 +1,9 @@
 import json
-frase = input("Digite uma frase: ")
-dados = {"mensagem": frase}
-with open("teste.json", "w") as f:
-    json.dump(dados, f, ensure_ascii=False)
+
+frase = input("digite sua mensagem: ")
+dados = {
+    "mensagem": frase
+}
+with open("teste.json", "w", encoding="utf-8") as arquivo:
+    json.dump(dados, arquivo, ensure_ascii=False)
+print("mensagem salva com sucesso em teste.json!")
