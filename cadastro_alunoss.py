@@ -16,12 +16,17 @@ cursor.execute('''
 ''')
 print("passo 2: tabela e campos configurados")
 
-nome_aluno = input(nome: )
-telefone_aluno = input(telefone: )
-turma_alunos = input(turma: )
-idade_aluno = int(idade: )
-cpf_aluno = input(cpf: )
+nome_aluno = input("nome: ")
+telefone_aluno = input("telefone: ")
+turma_alunos = input("turma: ")
+idade_aluno = int(input("idade: "))
+cpf_aluno = input("cpf: ")
 
 comando_inserir = (f'''
                     INSERT INTO alunos (nome, telefone, idade, cpf)
                     VALUES ('{nome_aluno}', '{telefone_aluno}', '{turma_alunos}', '{idade_aluno}', '{cpf_aluno}')''')
+
+cursor.execute(comando_inserir)
+conexao.commit()
+conexao.close
+0
