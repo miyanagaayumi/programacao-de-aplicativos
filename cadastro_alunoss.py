@@ -30,7 +30,7 @@ cursor.execute(comando_inserir) #executa o comando
 conexao.commit() #grava os dados no banco de dados 
 conexao.close() #fecha a conexão
 
-#listar
+def listar_alunos():
 
 conexao = sqlite3.connect('escola_demonstracao.db')
 cursor = conexao.cursor()
@@ -46,7 +46,7 @@ conexao.close()
 
 
 
-#alterar nome e CPF
+def alterar_nome_e_CPF():
 conexao = sqlite3.connect("escola_demonstracao.db")
 cursor = conexao.cursor()
 
@@ -69,3 +69,4 @@ print("\ndepois da alteração:")
 print(cursor.fetchone())
 
 conexao.close()
+
