@@ -18,7 +18,7 @@ def criar_professor():
 ''')
 
     nome_professor = input("nome: ")
-    telefone_professor = input("idade: ")
+    telefone_professor = input("telefone: ")
     materia_professor = input("materia: ")
     idade_professor = int(input("idade: "))
     cpf_professor = input("cpf: ")
@@ -26,7 +26,7 @@ def criar_professor():
     nome_escola = input("nome da escola: ")
 
     comando_inserir = (f'''
-                        INSERT INTO professores (nome, telefone, materia, idade, cpf, salario, nome da escola)
+                        INSERT INTO professores (nome_completo, telefone, materia, idade, cpf, salario, nome_da_escola)
                         VALUES ('{nome_professor}', '{telefone_professor}', '{materia_professor}', {idade_professor}, '{cpf_professor}', {salario}, '{nome_escola}')''')
 
     cursor.execute(comando_inserir)
@@ -47,12 +47,12 @@ def listar_professores():
             print(f"idade = {professor[4]}")
             print(f"cpf = {professor[5]}")
             print(f"salario = {professor[6]}")
-            print(f"nome da escola = {proessor[7]}")
+            print(f"nome da escola = {professor[7]}")
 
 
 def alterar_professor():
     id_professor = int(input("digite o id do professor: "))
-    cursor.execute(''' SELECT nome, telefone, marteria, idade, CPF, salario, nome da escola FROM professores WHERE id = {id_professor}''')
+    cursor.execute(f''' SELECT * FROM professores WHERE id = {id_professor}''')
     professores = cursor.fetchone()
     if not professores: 
         print("proessor não encontrado!")
@@ -66,12 +66,12 @@ def alterar_professor():
         novo_salario = float(input("novo salario: "))
         nova_escola = input("nova escola: ")
 
-        comando = (f'''UPDATE professores SET nome = '{novo_nome}', telefone = '{novo_telefone}', materia = '{nova_materia}', idade = '{nova_idade}', cpf = '{novo_cpf}', salario = '{novo_salario}', escola = '{nova_escola}' WHERE id = {id_professor}''')
+        comando = (f'''UPDATE professores SET nome = '{novo_nome}', telefone = '{novo_telefone}', materia = '{nova_materia}', idade = {nova_idade}, cpf = '{novo_cpf}', salario = {novo_salario}, escola = '{nova_escola}' WHERE id = {id_professor}''')
 
 def deletar_professor(): 
     listar_professores()
     id_professor = int(input("Qual ID deseja deletar: "))
-    cursor.execute(f'''DELETE FROM professor WHERE Id = {id_professor}''')
+    cursor.execute(f'''DELETE FROM professores WHERE id = {id_professor}''')
     conexao.commit()
     print("professor deletado")
 
