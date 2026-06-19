@@ -1,6 +1,6 @@
-import sqlite3 #importa a biblioteca sqlite3
-conexao = sqlite3.connect('escola_demonstracao.db') #faz a conexao para o banco de dados 'escola_demonstracao.db'
-cursor = conexao.cursor() #manda as informções para o banco de dados
+import sqlite3
+conexao = sqlite3.connect('escola_demonstracao.db') 
+cursor = conexao.cursor() 
 
 print("Passo 1: Conectado ao banco de dados") 
 
@@ -13,22 +13,22 @@ cursor.execute('''
         idade INTEGER, 
         cpf TEXT UNIQUE NOT NULL 
     )
-''') #cria a tabela no banco de dados
+''') 
 print("passo 2: tabela e campos configurados")
 
-nome_aluno = input("nome: ") #pede o nome do aluno 
-idade_aluno = int(input("idade: ")) #pede a idade do aluno 
-turma_alunos = input("turma: ") #pede a turma do aluno
-telefone_aluno = input("telefone: ") #pede o telefone  do aluno   
-cpf_aluno = input("cpf: ") #pede o cpf do aluno 
+nome_aluno = input("nome: ") 
+idade_aluno = int(input("idade: ")) 
+turma_alunos = input("turma: ") 
+telefone_aluno = input("telefone: ")  
+cpf_aluno = input("cpf: ") 
 
 comando_inserir = (f'''
                     INSERT INTO alunos (nome, telefone, turma, idade, cpf)
-                    VALUES ('{nome_aluno}', '{idade_aluno}', '{turma_alunos}', '{telefone_aluno}', '{cpf_aluno}')''') #preenche a tabela com as informações
+                    VALUES ('{nome_aluno}', '{idade_aluno}', '{turma_alunos}', '{telefone_aluno}', '{cpf_aluno}')''') 
 
-cursor.execute(comando_inserir) #executa o comando
-conexao.commit() #grava os dados no banco de dados 
-conexao.close() #fecha a conexão
+cursor.execute(comando_inserir) 
+conexao.commit() 
+conexao.close() 
 
 def listar_alunos():
 
