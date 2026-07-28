@@ -1,4 +1,30 @@
-import sqlite3
+# import sqlite3
+
+# def criar_tabelas():
+#     conexao = sqlite3.connect('sistema_escola.db')
+#     cursor = conexao.cursor()
+
+#     #este bloco quebra ao rodar pela primeira vez em um banco limpo. pq?
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS series (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             nome_serie text, 
+#             ID_ESCOLA integer,
+#             FOREIGN KEY (id_escola) REFERENCES escolas(id)
+#         )
+#         ''')
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS escolas (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             nome TEXT
+#         )
+#     ''')
+#     conexao.commit()
+#     conexao.close()
+    
+
+#CORRETO 
+
 
 def criar_tabelas():
     conexao = sqlite3.connect('sistema_escola.db')
@@ -8,9 +34,9 @@ def criar_tabelas():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS series (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome_serie text, 
-            ID_ESCOLA integer,
-            FOREIGN KEY (id_escola REFERENCES escolas(id)
+            nome_serie TEXT, 
+            id_escola INTEGER,
+            FOREIGN KEY (id_escola) REFERENCES escolas(id)
         )
         ''')
     cursor.execute('''
@@ -21,4 +47,3 @@ def criar_tabelas():
     ''')
     conexao.commit()
     conexao.close()
-    
