@@ -28,9 +28,21 @@ def inicializar_banco():
             nome TEXT NOT NULL
         )
     ''')
+
+    cursor.execute('''
+            CREATE TABLE IF NOT EXISTS series (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome_serie TEXT NOT NULL,
+                id_escola INTERGER,
+                FOREIGN KEY (id_escola) REFERENCES escolas (id)
+            )
+        ''')
+
     conexao.commit()
     conexao.close()
-    
+    print("banco de dados iniciado com sucesso")
+
+inicializar_banco()
 
 
 
