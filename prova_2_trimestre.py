@@ -24,7 +24,7 @@ def cadastrar_hospitais():
         conexao.commit()
     except ValueError:
         print("digite apenas o nome!")
-    except sqlite3.IntegrtyError as e:
+    except sqlite3.IntegrityError as e:
         print("Erro! Informações ja cadastradas!", e)
 
 
