@@ -4,8 +4,6 @@ cursor = conexao.cursor()
 
 def criar_tabelas():
     try:
-        conexao = sqlite3.connect('rede_bancaria.db')
-        cursor = conexao.cursor()
         cursor.execute('''
                         CREATE TABLE IF NOT EXISTS conglomerados_financeiros (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,7 +17,7 @@ def criar_tabelas():
                         numero_agencia TEXT NOT NULL,
                         id_conglomerado INTEGER NOT NULL,
                         FOREIGN KEY (id_conglomerado)
-                            REFERENCES conclomerados_financeiros(id)
+                            REFERENCES conglomerados_financeiros(id)
                             )''')
         conexao.commit()
     except Exception as erro:
@@ -34,8 +32,9 @@ def cadastrar_conglomerados():
         codigo_bcb = int(input("digite o seu codigo de compensação: "))
 
         comando_inserir = (f''' 
-                            INSERT INTO conglomerados_financeiros (nome_banco, codigo_compensacao_bcb) VALUES (?,?)
-                            ''')
+                            INSERT INTO conglomerados_financeiros (nome_banco, codigo_compensacao_bcb) VALUES (?,?)''',
+                            (nome_banco, codigo_bcb)
+                            )
         cursor.execute(comando_inserir)
         conexao.commit()
 
@@ -44,13 +43,15 @@ def cadastrar_conglomerados():
         print("erro: codigo de compensação BCB ja cadastrado")
     except Exception as erro:
         print("erro no cadastro:", erro)
+    finally:
+        print("encerrando programa...")
 
 def listar_conglomerados():
     try:
         cursor.execute(''' SELECT * FROM conglomerados_financeiros ''')
         conglomerados = cursor.fetchall()
 
-        if not conglomeraods:
+        if not conglomerados:
             print("nenhum conglomerado cadastrado")
         else:
             for conglomerado in conglomerados:
@@ -71,11 +72,12 @@ def atualizar_conglomerado():
         codigo_bcb = input("digite o novo codigo de compensação BCB: ")
 
         cursor.execute(
-            "UPDATE conglomerados_financeiros SET nome_banco = ?, codigo_compensação_bcb = ? WHERE id = ?", 
+            "UPDATE conglomerados_financeiros SET nome_banco = ?, codigo_compensacao_bcb = ? WHERE id = ?", 
             (nome_banco, codigo_compensacao_bcb, id_conglomerado)
         )
-            print("conglomerado atualizado com sucesso")
         conexao.commit()
+        print("conglomerado atualizado com sucesso")
+
     except ValueError:
         print("digite um ID valido: ")
     except sqlite3.Error as erro:
@@ -118,7 +120,7 @@ def menu_conglomerados():
             elif opcao == 3:
                 atualizar_conglomerado()
             elif opcao == 4:
-                excluir_conglomerado()
+                deletar_conglomerado()
             elif opcao == 5:
                 break
             else:
@@ -128,6 +130,7 @@ def menu_conglomerados():
             print("digite apenas numeros")
         except sqlite3.Error as erro:
             print("erro no banco de dados:", erro)
+menu_conglomerados()
 
 
 
@@ -139,7 +142,7 @@ def cadastrar_agencias():
 
         cursor.execute(
             ''' SELECT id FROM  conglomerados_financeiros WHERE id = ?''',
-            (id_conglomerado)
+            (id_conglomerado,)
         )
 
         if cursor.fetchone() is None:
@@ -172,7 +175,7 @@ def listar_agencias():
             print("id:", agencia[0])
             print("numero da agencia:", agencia[1])
             print("id do conglomerado:", agencia[2])
-            print( - * 30)
+            print( "-" * 30)
     except sqlite3.Error as erro:
         print("erro no banco de dados:", erro)
 
@@ -184,10 +187,10 @@ def atualizar_agencias():
 
         cursor.execute(
             '''SELECT id FROM conglomerados_financeiros WHERE id = ?''',
-            (id_conglomerado)
+            (id_conglomerado,)
        )
 
-        if cursor.fetchone() is None
+        if cursor.fetchone() is None:
             print("conglomerado não encontrado")
             return
 
@@ -206,13 +209,13 @@ def atualizar_agencias():
         print("erro no banco de dados:", erro)
 
 
-def excluir_agencias_agencias():
+def excluir_agencias():
     try:
         id_agencia = int(input("digite o id da agencia que deseja excluir: "))
 
         cursor.execute(
             '''DELETE FROM agencias_bancarias WHERE id = ?''', 
-            (id_agencia)
+            (id_agencia,)
         )
 
         conexao.commit()
@@ -253,3 +256,6 @@ def menu_agencias():
             print("digite apenas numeros")
         except sqlite3.Error as erro:
             print("erro no banco de dados:", erro)
+menu_agencias()
+conexao.commit()
+conexao.close()
