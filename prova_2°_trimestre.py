@@ -85,4 +85,171 @@ def atualizar_conglomerado():
 
 def deletar_conglomerado():
     try:
+        id_conglomerado = int(input("digite o ID do conglomerado que deseja excluir: "))
+
+        cursor.execute(
+            ''' DELETE FROM conglomerados_financeiros WHERE id = ?''', (id_conglomerado)            
+        )
+
+        conexao.commit()
+        print("conglomerado excluido com sucesso")
+
+    except ValueError:
+        print("digite um ID valido")
+    except sqlite3.Error as erro:
+        print("erro no banco de dados:", erro)   
+
+def menu_conglomerados():
+     while True:
+        try:
+            print("\n---- MENU CONGLOMERADO ----")
+            print("\n1 - cadastrar")
+            print("2 - listar")
+            print("3 - atualizar")
+            print("4 - excluir")
+            print("5 - sair")
+
+            opcao = int(input("escolha uma opção: "))
+
+            if opcao == 1:
+                cadastrar_conglomerados()
+            elif opcao == 2:
+                listar_conglomerados()
+            elif opcao == 3:
+                atualizar_conglomerado()
+            elif opcao == 4:
+                excluir_conglomerado()
+            elif opcao == 5:
+                break
+            else:
+                print("opção invalida")
+
+        except ValueError:
+            print("digite apenas numeros")
+        except sqlite3.Error as erro:
+            print("erro no banco de dados:", erro)
+
+
+
+def cadastrar_agencias():
+    cursor.execute("PRAGMA foreign_keys = ON")
+    try:
+        numero_agencia = input("digite o numero da agencia: ")
+        id_conglomerado = int(input("digite o ID do conglomerado: "))
+
+        cursor.execute(
+            ''' SELECT id FROM  conglomerados_financeiros WHERE id = ?''',
+            (id_conglomerado)
+        )
+
+        if cursor.fetchone() is None:
+            print("conglomerado não encontrado")
+            return
         
+        cursor.execute(
+            '''INSERT INTO agencias_bancarias (numero_agencia, id_conglomerado) VALUES (?, ?)''',
+            (numero_agencia, id_conglomerado)
+
+        )
+        conexao.commit()
+        print("agencia cadastrada com sucesso")
+
+    except ValueError:
+        print("o id do conglomerado deve ser um numero")
+    except sqlite3.Error as erro:
+        print("Erro no banco de dados:", erro)
+
+def listar_agencias():
+    try:
+        cursor.execute(''' SELECT * FROM agencias_bancarias ''')
+        agencias = cursor.fetchall()
+
+        if len(agencias) == 0:
+            print("nenhuma agencia cadastrada")
+            return
+
+        for agencia in agencias:
+            print("id:", agencia[0])
+            print("numero da agencia:", agencia[1])
+            print("id do conglomerado:", agencia[2])
+            print( - * 30)
+    except sqlite3.Error as erro:
+        print("erro no banco de dados:", erro)
+
+def atualizar_agencias():
+    try:
+        id_agencia = int(input("digite o ID da agencia: "))
+        numero_agencia = input("digite o novo numero da agencia: ")
+        id_conglomerado = int(input("digite o novo id do conglomerado: "))
+
+        cursor.execute(
+            '''SELECT id FROM conglomerados_financeiros WHERE id = ?''',
+            (id_conglomerado)
+       )
+
+        if cursor.fetchone() is None
+            print("conglomerado não encontrado")
+            return
+
+        cursor.execute(
+            ''' UPDATE agencias_bancarias
+            SET numero_agencia = ?, id_conglomerado = ? WHERE id = ? ''',
+            (numero_agencia, id_conglomerado, id_agencia)
+        )
+
+        conexao.commit()
+        print("agencia atualizada com sucesso")
+
+    except ValueError:
+        print("digite valores validos")
+    except sqlite3.Error as erro:
+        print("erro no banco de dados:", erro)
+
+
+def excluir_agencias_agencias():
+    try:
+        id_agencia = int(input("digite o id da agencia que deseja excluir: "))
+
+        cursor.execute(
+            '''DELETE FROM agencias_bancarias WHERE id = ?''', 
+            (id_agencia)
+        )
+
+        conexao.commit()
+        print("agencia excluida com sucesso")
+
+    except ValueError:
+        print("digite um id valido")
+    except sqlite3.Error as erro:
+        print("erro no banco de dados:", erro)
+
+
+def menu_agencias():
+     while True:
+        try:
+            print("\n---- MENU AGENCIAS ----")
+            print("\n1 - cadastrar")
+            print("2 - listar")
+            print("3 - atualizar")
+            print("4 - excluir")
+            print("5 - sair")
+
+            opcao = int(input("escolha uma opção: "))
+
+            if opcao == 1:
+                cadastrar_agencias()
+            elif opcao == 2:
+                listar_agencias()
+            elif opcao == 3:
+                atualizar_agencias()
+            elif opcao == 4:
+                excluir_agencias()
+            elif opcao == 5:
+                break
+            else:
+                print("opção invalida")
+
+        except ValueError:
+            print("digite apenas numeros")
+        except sqlite3.Error as erro:
+            print("erro no banco de dados:", erro)
