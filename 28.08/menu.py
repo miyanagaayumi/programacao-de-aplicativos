@@ -1,180 +1,46 @@
-import banco
-import escola
-import turma
-import aluno
+from banco import iniciar_banco
+from escola import cadastrar_escolas, listar_escolas, atualizar_escolas, excluir_escolas
+from turma import cadastrar_turmas, listar_turmas, atualizar_turmas, excluir_turmas
+from aluno import cadastrar_alunos, listar_alunos, atualizar_alunos, excluir_alunos
 
 
-def menu_escolas():
-    while True:
-        print("\n===== MENU ESCOLAS =====")
-        print("1 - cadastrar escola")
-        print("2 - listar escolas")
-        print("3 - sair")
-        
-        opcao = input("escolha uma opção: ")
 
-        if opcao == "1":
-            nome = input("nome da escola: ")
-            cidade = input("cidade: ")
+def menu():
+    iniciar_banco()
+    opcao = 0
+    while opcao != 13:
+        print("\n>>> MENU <<<")
+        print("\n1-Cadastrar escola")
+        print("2-Listar escola")
+        print("3-Atualizar escola")
+        print("4-Deletar escola")
+        print("\n---------------")
+        print("\n5-Cadastrar turma")
+        print("6-Listar turma")
+        print("7-Atualizar turma")
+        print("8-Deletar escola")
+        print("\n---------------")
+        print("\n9-Cadastrar aluno")
+        print("10-Listar aluno")
+        print("11-Atualizar aluno")
+        print("12-Deletar aluno")
+        print("\n13->>SAIR<<")
 
-            try:
-                escola.cadastrar_escola(nome, cidade)
-            except AssertionError as erro:
-                print(f"Validação: {erro}")
+        opcao = int(input("\nDigite a opção desejada: "))
 
-        elif opcao == "2":
-            escola.listar_escolas()
-
-        elif opcao == "3":
+        if opcao == 1: cadastrar_escolas()
+        elif opcao == 2: listar_escolas()
+        elif opcao == 3: atualizar_escolas()
+        elif opcao == 4: excluir_escolas()
+        elif opcao == 5: cadastrar_turmas()
+        elif opcao == 6: listar_turmas()
+        elif opcao == 7: atualizar_turmas()
+        elif opcao == 8: excluir_turmas()
+        elif opcao == 9: cadastrar_alunos()
+        elif opcao == 10: listar_alunos()
+        elif opcao == 11: atualizar_alunos()
+        elif opcao == 12: excluir_alunos()
+        elif opcao == 13:
+            print("~~~~ PROGRAMA ENCERRADO! ~~~~")
             break
-
-        else:
-            print("Opção inválida.")
-
-
-def menu_turmas():
-    while True:
-        print("\n===== MENU TURMAS =====")
-        print("1 - cadastrar turma")
-        print("2 - listar turmas")
-        print("3 - sair")
-        
-        opcao = input("Escolha uma opção: ")
-
-        if opcao == "1":
-            nome = input("Nome da turma: ")
-            id_escola = ler_inteiro("ID da escola: ")
-
-            if id_escola is None:
-                continue
-
-            try:
-                turma.cadastrar_turma(nome, id_escola)
-            except AssertionError as erro:
-                print(f"Validação: {erro}")
-
-        elif opcao == "2":
-            turma.listar_turmas()
-
-        elif opcao == "3":
-            break
-
-        else:
-            print("Opção inválida.")
-
-
-def menu_alunos():
-    while True:
-        print("\n===== MENU ALUNOS =====")
-        print("1 - Cadastrar aluno")
-        print("2 - Listar alunos")
-        print("3 - sair")
-        print("4 - Excluir aluno")
-        print("0 - Voltar")
-
-        opcao = input("Escolha uma opção: ")
-
-        if opcao == "1":
-            nome = input("Nome do aluno: ")
-            idade = ler_inteiro("Idade: ")
-
-            if idade is None:
-                continue
-
-            id_turma = ler_inteiro("ID da turma: ")
-
-            if id_turma is None:
-                continue
-
-            try:
-                aluno.cadastrar_aluno(
-                    nome,
-                    idade,
-                    id_turma
-                )
-            except AssertionError as erro:
-                print(f"Validação: {erro}")
-
-        elif opcao == "2":
-            aluno.listar_alunos()
-
-        elif opcao == "3":
-            id_aluno = ler_inteiro("ID do aluno: ")
-
-            if id_aluno is None:
-                continue
-
-            nome = input("Novo nome: ")
-            idade = ler_inteiro("Nova idade: ")
-
-            if idade is None:
-                continue
-
-            id_turma = ler_inteiro("Novo ID da turma: ")
-
-            if id_turma is None:
-                continue
-
-            try:
-                aluno.alterar_aluno(
-                    id_aluno,
-                    nome,
-                    idade,
-                    id_turma
-                )
-            except AssertionError as erro:
-                print(f"Validação: {erro}")
-
-        elif opcao == "4":
-            id_aluno = ler_inteiro("ID do aluno: ")
-
-            if id_aluno is None:
-                continue
-
-            try:
-                aluno.excluir_aluno(id_aluno)
-            except AssertionError as erro:
-                print(f"Validação: {erro}")
-
-        elif opcao == "0":
-            break
-
-        else:
-            print("Opção inválida.")
-
-
-def iniciar():
-    # Cria o banco e as tabelas antes de iniciar o sistema
-    banco.criar_tabelas()
-
-    while True:
-        print("\n")
-        print("==============================")
-        print("     SISTEMA DE GESTÃO ESCOLAR")
-        print("==============================")
-        print("1 - Escolas")
-        print("2 - Turmas")
-        print("3 - Alunos")
-        print("0 - Sair")
-
-        opcao = input("Escolha uma opção: ")
-
-        if opcao == "1":
-            menu_escolas()
-
-        elif opcao == "2":
-            menu_turmas()
-
-        elif opcao == "3":
-            menu_alunos()
-
-        elif opcao == "0":
-            print("Sistema encerrado.")
-            break
-
-        else:
-            print("Opção inválida. Tente novamente.")
-
-
-if __name__ == "__main__":
-    iniciar()
+menu()
